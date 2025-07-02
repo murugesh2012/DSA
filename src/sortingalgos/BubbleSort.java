@@ -14,11 +14,11 @@ public class BubbleSort {
             arr[i] = sc.nextInt();
         }
         for (int i = 0; i < numberOfElements; i++) {
-            for (int j = i + 1; j < numberOfElements; j++) {
-                if (arr[i] > arr[j]) {
-                    int temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
+            for (int j = 1; j < numberOfElements-i; j++) {
+                if (arr[j-1] > arr[j]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j-1];
+                    arr[j-1] = temp;
                 }
             }
         }

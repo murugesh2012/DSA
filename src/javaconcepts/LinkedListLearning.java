@@ -27,6 +27,8 @@ public class LinkedListLearning {
         list.deleteMiddle(2);
         list.printAll();
         System.out.println();
+        System.out.println(list.findElement(24));
+        System.out.println(list.findElement(23));
 
 System.out.println(list.getSize());
 

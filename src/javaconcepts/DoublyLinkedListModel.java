@@ -1,10 +1,9 @@
 package javaconcepts;
 
-public class LinkedListModel {
+public class DoublyLinkedListModel {
     private Node head;
-    private Node tail;
     private int size;
-    LinkedListModel()
+    DoublyLinkedListModel()
     {
         this.size=0;
     }
@@ -12,41 +11,22 @@ public class LinkedListModel {
     {
         Node node=new Node(val);
         node.next=head;
-        head=node;
-        if(tail==null)
+        node.prev=null;
+        if(head!=null)
         {
-            tail=head;
+            head.prev=node;
         }
+        head=node;
         size+=1;
     }
 
     public void insertLast(int val)
     {
-        if(tail==null)
-        {
-            insertElement(val);
-            return;
-        }
-        Node node=new Node(val);
-        tail.next=node;
-        tail=node;
-        size++;
-    }
 
-    public void insertRec(int val,int index)
-    {
-        head=insertRec(val,index,head);
-    }
-    private  Node insertRec(int val, int index,Node node)
-    {
-        if(index == 0)
-        {
-            Node temp=new Node(val,node);
-            size++;
-            return temp;
-        }
-        node.next=insertRec(val, index-1,node.next);
-        return node;
+        Node node=new Node(val);
+//        tail.next=node;
+//        tail=node;
+        size++;
     }
 
     public void insertMiddle(int val,int index)
@@ -66,8 +46,9 @@ public class LinkedListModel {
         {
             temp=temp.next;
         }
-        Node node=new Node(val,temp.next);
+        Node node=new Node(val,temp.next,temp);
         temp.next=node;
+        node.next.prev=node;
         size++;
     }
     public void deleteFirst()
@@ -75,7 +56,7 @@ public class LinkedListModel {
         head=head.next;
         if(head==null)
         {
-            tail=null;
+
         }
 size--;
     }
@@ -86,7 +67,7 @@ size--;
         {
             temp=temp.next;
         }
-        tail=temp.next;
+
         temp.next=null;
         size--;
     }
@@ -98,9 +79,7 @@ size--;
         }
         if (index == 0) {
             head = head.next;
-            if (head == null) {
-                tail = null;
-            }
+
             size--;
             return;
         }
@@ -136,25 +115,36 @@ size--;
     public void printAll()
     {
        Node temp =head;
+       Node last=null;
        while (temp !=null)
        {
            System.out.print(temp.val+ "->");
+           last=temp;
            temp=temp.next;
        }
        System.out.print("END");
+        System.out.println();
+        while (last !=null)
+        {
+            System.out.print(last.val+ "->");
+            last=last.prev;
+        }
+        System.out.print("START");
     }
 
     private class Node {
         int val;
         Node next;
+        Node prev;
         Node(int val )
         {
             this.val=val;
         }
-        Node(int val,Node next)
+        Node(int val,Node next,Node prev)
         {
             this.val=val;
             this.next=next;
+            this.prev=prev;
         }
     }
 }
